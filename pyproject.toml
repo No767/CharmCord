@@ -36,6 +36,23 @@ profile = 'black'
 [tool.bandit]
 skips = ["B311", "B101"]
 
+[tool.pyright]
+include = ["CharmCord/**"]
+exclude = [
+    "**/__pycache__", 
+    "**/.mypy_cache", 
+    "**/.dmpypy.json", 
+    "Examples",
+]
+reportMissingImports = true
+typeCheckingMode = "basic"
+reportUnnecessaryTypeIgnoreComment = "warning"
+
+[tool.ruff]
+ignore = ["E501"]
+select = ["E", "F", "N"]
+
+
 [build-system]
 requires = ["poetry-core"]
 build-backend = "poetry.core.masonry.api"

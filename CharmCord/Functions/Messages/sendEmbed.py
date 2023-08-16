@@ -14,7 +14,7 @@ async def sendEmbed(args: str, Context):
     split = args.split(";")
     try:
         channel_id = split[0]
-        title = split[1]
+        split[1]
         message = split[2]
         color = split[3]
         footer = split[4]
@@ -30,7 +30,7 @@ async def sendEmbed(args: str, Context):
         raise SyntaxError("Not enough arguments in $sendEmbed")
     except SyntaxError:
         channel_id = split[0]
-        title = split[1]
+        split[1]
         message = split[2]
         footer = split[4]
         channel = await bots.fetch_channel(int(channel_id))

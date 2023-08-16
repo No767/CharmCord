@@ -1,6 +1,4 @@
-import asyncio
 import random
-from enum import Enum
 
 # class CharmActivity(Enum):
 import discord
@@ -18,7 +16,7 @@ def setActivity(message: str, type: str = "watching"):
     return act
 
 
-def loopActivity(time: int, messages: [str], types: str = "watching"):
+def loopActivity(time: int, messages: str, types: str = "watching"):
     @tasks.loop(seconds=time)
     async def updateActivity(message=messages, type=types):
         from CharmCord.Classes.CharmCord import bots

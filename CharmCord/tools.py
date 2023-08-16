@@ -1,7 +1,6 @@
 from datetime import datetime as D_T
 from pytz import timezone
 
-import CharmCord.Classes.CharmCord
 from CharmCord.all_functions import date_funcs, ifse
 from .Functions import *
 
@@ -258,7 +257,7 @@ def checkArgs(args, Code):
                             )
             else:
                 add = [i for i in args]
-                Code = str(Code).replace(f"$args", str(add))
+                Code = str(Code).replace("$args", str(add))
     return Code
 
 
