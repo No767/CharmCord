@@ -18,4 +18,6 @@ async def channelMention(ID, Context):
         channel = await bots.fetch_channel(ID)
         return channel.mention
     except ValueError:
-        CharmCord_Errors(f"$channelMention: {ID} not valid channel id\nCommand: {Context.command.name}")
+        CharmCord_Errors(
+            f"$channelMention: {ID} not valid channel id\nCommand: {Context.command.name}"
+        )

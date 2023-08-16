@@ -46,22 +46,24 @@ all_Funcs = [
     "$userMention",
     "$userName",
     "$wait",
-    '$waitMessage',
-    "$waitReaction"
+    "$waitMessage",
+    "$waitReaction",
 ]
 
 date_funcs = ["$channelCreated"]
 
 ifse = ["$If", "$ElIf"]
 
-no_arg_Funcs = ["$botName",
-                "$botID",
-                "$authorID",
-                "$channelID",
-                "$guildID",
-                "$ping",
-                "$botGuilds",
-                "$botAvatar",
-                "$botMention"]
+no_arg_Funcs = [
+    "$botName",
+    "$botID",
+    "$authorID",
+    "$channelID",
+    "$guildID",
+    "$ping",
+    "$botGuilds",
+    "$botAvatar",
+    "$botMention",
+]
 
 newline_char = "*n*"

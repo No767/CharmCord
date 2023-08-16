@@ -1,4 +1,5 @@
 import asyncio
+
 from CharmCord.CharmErrorHandling import CharmCord_Errors
 
 
@@ -7,6 +8,7 @@ async def waitMessage(args, context):
     Ex. $waitMessage[ChannelID;User;timeout;timeoutErrMsg]
     """
     from CharmCord.Classes.CharmCord import bots
+
     split = args.split(";")
     if len(split) < 3:
         raise SyntaxError("ID, User, or timeout not provided to $waitMessage")
@@ -21,6 +23,7 @@ async def waitMessage(args, context):
                     return True
                 elif int(user) == message.author.id:
                     return True
+
         error = None
         if len(split[3]) > 1:
             error = split[3]

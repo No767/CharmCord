@@ -8,7 +8,6 @@ async def channelCategoryID(empty, Context):
     Ex. $channelCategoryID
     Returns the ID of the current category ID
     """
-    pass
 
     try:
         int(Context.channel.category.id)

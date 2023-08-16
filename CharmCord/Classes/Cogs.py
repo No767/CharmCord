@@ -1,4 +1,10 @@
-from CharmCord.tools import checkArgCheck, checkArgs, findBracketPairs, noArguments, isValid
+from CharmCord.tools import (
+    checkArgCheck,
+    checkArgs,
+    findBracketPairs,
+    isValid,
+    noArguments,
+)
 
 AC = {}
 
@@ -23,10 +29,17 @@ class Charmcogs:
     def slashcommandcogs(self, name, code, args: list, description):
         def slashcommand():
             from CharmCord.Classes.CharmCord import bots
+
             newArgs = []
             for i in args:
                 newArgs.append(f"{i}: str")
-            needs = {"arguments": args, "codes": code, "bots": bots, "name": name, "description": description}
+            needs = {
+                "arguments": args,
+                "codes": code,
+                "bots": bots,
+                "name": name,
+                "description": description,
+            }
             func = f"""@bots.tree.command(name=name, description=description)
 async def go(ctx, {', '.join(newArgs)}):
                         from CharmCord.Classes.CharmCord import TotalFuncs
@@ -40,4 +53,5 @@ async def go(ctx, {', '.join(newArgs)}):
                         await findBracketPairs(finalCode, TotalFuncs, Context)
                 """
             exec(func, needs)
+
         slashcommand()

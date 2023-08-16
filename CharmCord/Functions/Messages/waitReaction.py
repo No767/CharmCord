@@ -1,4 +1,5 @@
 import asyncio
+
 from CharmCord.CharmErrorHandling import CharmCord_Errors
 
 
@@ -7,6 +8,7 @@ async def waitReaction(args, context):
     Ex. $waitMessage[ChannelID;User;emoji;timeout;timeoutErrMsg]
     """
     from CharmCord.Classes.CharmCord import bots
+
     split = args.split(";")
     if len(split) < 3:
         raise SyntaxError("ID, User, or timeout not provided to $waitMessage")
@@ -29,14 +31,18 @@ async def waitReaction(args, context):
         if len(split[4]) > 1:
             error = split[4]
         if error is None:
-            reaction, user = await bots.wait_for("reaction_add", timeout=timeout, check=check)
+            reaction, user = await bots.wait_for(
+                "reaction_add", timeout=timeout, check=check
+            )
             try:
                 return reaction.emoji.name
             except AttributeError:
                 return reaction.emoji
         else:
             try:
-                reaction, user = await bots.wait_for("reaction_add", timeout=timeout, check=check)
+                reaction, user = await bots.wait_for(
+                    "reaction_add", timeout=timeout, check=check
+                )
                 try:
                     return reaction.emoji.name
                 except AttributeError:

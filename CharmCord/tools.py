@@ -1,7 +1,9 @@
 from datetime import datetime as D_T
+
 from pytz import timezone
 
 from CharmCord.all_functions import date_funcs, ifse
+
 from .Functions import *
 
 timezones = (timezone("EST"), timezone("UTC"), timezone("US/Pacific"))
@@ -46,7 +48,7 @@ def slashArgs(args, Code):
             end = None
             balance = 0
             start = Code.index("$slashArgs") + 10
-            look = Code[start: len(Code)]
+            look = Code[start : len(Code)]
             for i in look:
                 if i == "[":
                     start = count
@@ -62,7 +64,7 @@ def slashArgs(args, Code):
                         # Replace $args with arguments
                         Code = str(Code).replace(
                             f"$slashArgs[{look[start + 1:end]}]",
-                            args[int(look[start + 1: end]) - 1],
+                            args[int(look[start + 1 : end]) - 1],
                         )
                         break
                     except IndexError:
@@ -83,20 +85,20 @@ async def findBracketPairs(entry: str, Functions, context):
         if i.strip().startswith("$") and i[-1] != "]" and "[" in i.strip():
             try:
                 test[starts] = (
-                        test[starts].strip() + " " + test[starts + 1].strip()
+                    test[starts].strip() + " " + test[starts + 1].strip()
                 ).strip()
                 test.remove(test[starts + 1])
                 starts += 1
             except IndexError:
                 starts -= 1
                 test[starts] = (
-                        test[starts].strip() + " " + test[starts + 1].strip()
+                    test[starts].strip() + " " + test[starts + 1].strip()
                 ).strip()
                 test.remove(test[starts + 1])
                 starts += 1
         elif i.endswith("]") and i[0].strip() != "$":
             test[starts] = (
-                    test[starts - 1].strip() + " " + test[starts].strip()
+                test[starts - 1].strip() + " " + test[starts].strip()
             ).strip()
             test.remove(test[starts - 1])
             starts += 1
@@ -151,7 +153,7 @@ async def findBracketPairs(entry: str, Functions, context):
             if first is not None and last is not None and balance1 == 0:
                 break
             count += 1
-        argument = str(code[first + 1: last])
+        argument = str(code[first + 1 : last])
         keyword = code[0:first]
         find = [first, last, keyword, argument, context]
         while "[" in str(argument) and "]" in str(argument) and "$" in str(argument):
@@ -160,9 +162,24 @@ async def findBracketPairs(entry: str, Functions, context):
             end = None
             balance = 0
             for i in argument:
-                digits = ["1", "2", "3", "4", "5", "6", '7', '8', "9", "0"]  # A keyword will never start or have a digit in it
-                if i == "$" and start is None and argument[count + 1] != "$" and argument[
-                    count + 1] not in digits:  # $$keyword will discount the first $ as part of the text
+                digits = [
+                    "1",
+                    "2",
+                    "3",
+                    "4",
+                    "5",
+                    "6",
+                    "7",
+                    "8",
+                    "9",
+                    "0",
+                ]  # A keyword will never start or have a digit in it
+                if (
+                    i == "$"
+                    and start is None
+                    and argument[count + 1] != "$"
+                    and argument[count + 1] not in digits
+                ):  # $$keyword will discount the first $ as part of the text
                     start = count
                 elif i == "[":
                     balance += 1
@@ -174,16 +191,18 @@ async def findBracketPairs(entry: str, Functions, context):
                     break
             if start != 0:
                 argument = (
-                        argument[:start]
-                        + str(
-                    await findBracketPairs(argument[start: end + 1], Functions, context)
-                )
-                        + argument[end + 1:]
+                    argument[:start]
+                    + str(
+                        await findBracketPairs(
+                            argument[start : end + 1], Functions, context
+                        )
+                    )
+                    + argument[end + 1 :]
                 )
             else:
                 argument = (
-                        str(await findBracketPairs(argument, Functions, context))
-                        + argument[end + 1:]
+                    str(await findBracketPairs(argument, Functions, context))
+                    + argument[end + 1 :]
                 )
             find = [first, last, keyword, argument, context]
         if find[2].lower() in Functions.funcs:
@@ -232,7 +251,7 @@ def checkArgs(args, Code):
                 end = None
                 balance = 0
                 start = Code.index("$args") + 5
-                look = Code[start: len(Code)]
+                look = Code[start : len(Code)]
                 for i in look:
                     if i == "[":
                         start = count
@@ -248,7 +267,7 @@ def checkArgs(args, Code):
                             # Replace $args with arguments
                             Code = str(Code).replace(
                                 f"$args[{look[start + 1:end]}]",
-                                args[int(look[start + 1: end]) - 1],
+                                args[int(look[start + 1 : end]) - 1],
                             )
                             break
                         except IndexError:
@@ -266,7 +285,7 @@ async def isValid(code, functions):
         while "$isValidFunc" in code:
             start = code.index("$isValidFunc[") + 13
             area = code[start:]
-            if "$" not in area[:area.index(']')]:
+            if "$" not in area[: area.index("]")]:
                 valid = str(f"${area[:area.index(']')]}").lower() in functions.funcs
                 Code = code.replace(
                     f"$isValidFunc[{area[:area.index(']')]}]", str(valid)
@@ -289,7 +308,7 @@ async def checkArgCheck(args, Code, Context):
         try:
             if ";" in area[: area.index("]")]:
                 argTotal = area[: area.index(";")]
-                warning = area[area.index(";") + 1: area.index("]")]
+                warning = area[area.index(";") + 1 : area.index("]")]
                 if len(args) < int(argTotal):
                     await Context.channel.send(warning)
                     return "Failed"
